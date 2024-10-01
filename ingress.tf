@@ -18,9 +18,9 @@ resource "kubernetes_manifest" "matrix-ingress" {
         "cert-manager.io/cluster-issuer" = data.terraform_remote_state.rancher-config.outputs.cluster-issuer
       }
       labels = {
-        app = helm_release.matrix.metadata.0.chart
+        app = var.release-chart
       }
-      name = helm_release.matrix.metadata.0.name
+      name = var.release-name
       namespace = kubernetes_namespace.matrix.metadata.0.name
     }
     spec = {
@@ -32,7 +32,7 @@ resource "kubernetes_manifest" "matrix-ingress" {
               {
                 backend = {
                   service = {
-                    name = "${helm_release.matrix.metadata.0.name}-${helm_release.matrix.metadata.0.chart}"
+                    name = "${var.release-name}-${var.release-chart}"
                     port = {
                       number = 80
                     }

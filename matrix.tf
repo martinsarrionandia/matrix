@@ -1,9 +1,9 @@
 resource "helm_release" "matrix" {
   create_namespace = true
   namespace        = kubernetes_namespace.matrix.metadata.0.name
-  name             = "matrix"
+  name             = var.release-name
   repository       = "https://ananace.gitlab.io/charts"
-  chart            = "matrix-synapse"
+  chart            = var.release-chart
 
   set {
     name  = "replicaCount"
@@ -18,6 +18,11 @@ resource "helm_release" "matrix" {
   set {
     name  = "persistence.existingClaim"
     value = kubernetes_persistent_volume_claim.matrix.metadata.0.name
+  }
+
+  set {
+    name  = "postgresql.primary.persistence.existingClaim"
+    value = kubernetes_persistent_volume_claim.matrix-postgresql.metadata.0.name
   }
 
   set {
@@ -37,7 +42,7 @@ resource "helm_release" "matrix" {
 
   set {
     name  = "enableRegistration"
-    value = "True"
+    value = "false"
   }
 
   set {
