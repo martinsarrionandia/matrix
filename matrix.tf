@@ -37,12 +37,12 @@ resource "helm_release" "matrix" {
 
   set {
     name  = "wellknown.enabled"
-    value = true
+    value = false
   }
 
   set {
     name  = "enableRegistration"
-    value = "false"
+    value = false
   }
 
   set {

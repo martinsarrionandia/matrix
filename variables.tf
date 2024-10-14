@@ -17,3 +17,8 @@ variable "release-chart" {
   type = string
   default ="matrix-synapse"
 }
+
+variable "matrix-federation" {
+  type = string
+  default = "_matrix._tcp"
+}
