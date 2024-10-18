@@ -46,7 +46,7 @@ resource "helm_release" "matrix" {
   }
 
   set {
-    name = "registrationSharedSecret"
+    name  = "config.registrationSharedSecret"
     value = jsondecode(data.aws_secretsmanager_secret_version.matrix_current.secret_string)["registrationSharedSecret"]
   }
 }

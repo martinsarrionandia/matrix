@@ -13,8 +13,8 @@ resource "aws_route53_record" "matrix" {
 
 resource "aws_route53_record" "federated_srv" {
   zone_id = data.aws_route53_zone.main_domain.id
-  name    = "${var.matrix-federation}.${var.main-domain}"
+  name    = "${var.matrix-federation}.${var.matrix-subdomain}.${var.main-domain}"
   type    = "SRV"
   ttl     = "300"
-  records = ["1 1 1 ${aws_route53_record.matrix.fqdn}"]
+  records = ["5 10 ${var.federation_port} ${aws_route53_record.matrix.fqdn}"]
 }

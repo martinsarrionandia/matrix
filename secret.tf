@@ -1,5 +1,5 @@
 data "aws_secretsmanager_secret" "matrix" {
-  arn = "arn:aws:secretsmanager:eu-west-2:281287281094:secret:matrix-fFyAgI"
+  arn = var.matrix-secret-arn
 }
 
 data "aws_secretsmanager_secret_version" "matrix_current" {

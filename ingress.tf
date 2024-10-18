@@ -1,18 +1,7 @@
-#resource "kubernetes_manifest" "matrix-ingress" {
-#  manifest = yamldecode(templatefile("${path.module}/templates/ingress.yaml",
-#    {
-#      namespace      = kubernetes_namespace.matrix.metadata.0.name,
-#      app-name       = helm_release.matrix.metadata.0.name,
-#      chart-name     = helm_release.matrix.metadata.0.chart,
-#      cluster-issuer = data.terraform_remote_state.rancher-config.outputs.cluster-issuer,
-#      endpoint-fqdn  = aws_route53_record.matrix.fqdn
-#  }))
-#}
-
 resource "kubernetes_manifest" "matrix-ingress" {
   manifest = {
     apiVersion = "networking.k8s.io/v1"
-    kind = "Ingress"
+    kind       = "Ingress"
     metadata = {
       annotations = {
         "cert-manager.io/cluster-issuer" = data.terraform_remote_state.rancher-config.outputs.cluster-issuer
@@ -20,7 +9,7 @@ resource "kubernetes_manifest" "matrix-ingress" {
       labels = {
         app = var.release-chart
       }
-      name = var.release-name
+      name      = var.release-name
       namespace = kubernetes_namespace.matrix.metadata.0.name
     }
     spec = {
@@ -38,7 +27,7 @@ resource "kubernetes_manifest" "matrix-ingress" {
                     }
                   }
                 }
-                path = "/"
+                path     = "/"
                 pathType = "Prefix"
               },
             ]

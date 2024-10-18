@@ -40,22 +40,21 @@ resource "kubernetes_persistent_volume" "matrix" {
     }
     access_modes = ["ReadWriteOnce"]
     persistent_volume_source {
-      aws_elastic_block_store { 
-          volume_id = data.aws_ebs_volume.matrix.id
+      aws_elastic_block_store {
+        volume_id = data.aws_ebs_volume.matrix.id
       }
     }
   }
-  
 }
 
 resource "kubernetes_persistent_volume_claim" "matrix" {
   metadata {
-    name = "matrix-claim"
+    name      = "matrix-claim"
     namespace = kubernetes_namespace.matrix.metadata.0.name
   }
   spec {
     storage_class_name = data.terraform_remote_state.rancher-config.outputs.amazon-ebs-class
-    access_modes = ["ReadWriteOnce"]
+    access_modes       = ["ReadWriteOnce"]
     resources {
       requests = {
         storage = "1Gi"
@@ -64,8 +63,6 @@ resource "kubernetes_persistent_volume_claim" "matrix" {
     volume_name = kubernetes_persistent_volume.matrix.metadata.0.name
   }
 }
-
-
 
 resource "kubernetes_persistent_volume" "matrix-postgresql" {
   metadata {
@@ -81,22 +78,22 @@ resource "kubernetes_persistent_volume" "matrix-postgresql" {
     }
     access_modes = ["ReadWriteOnce"]
     persistent_volume_source {
-      aws_elastic_block_store { 
-          volume_id = data.aws_ebs_volume.matrix-postgresql.id
+      aws_elastic_block_store {
+        volume_id = data.aws_ebs_volume.matrix-postgresql.id
       }
     }
   }
-  
+
 }
 
 resource "kubernetes_persistent_volume_claim" "matrix-postgresql" {
   metadata {
-    name = "matrix-postgresql-claim"
+    name      = "matrix-postgresql-claim"
     namespace = kubernetes_namespace.matrix.metadata.0.name
   }
   spec {
     storage_class_name = data.terraform_remote_state.rancher-config.outputs.amazon-ebs-class
-    access_modes = ["ReadWriteOnce"]
+    access_modes       = ["ReadWriteOnce"]
     resources {
       requests = {
         storage = "1Gi"
