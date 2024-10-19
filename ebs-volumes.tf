@@ -8,7 +8,7 @@ data "aws_ebs_volume" "matrix" {
 
   filter {
     name   = "tag:Name"
-    values = ["rancher-matrix"]
+    values = [var.matrix-ebs-volume-name]
   }
 }
 
@@ -22,7 +22,7 @@ data "aws_ebs_volume" "matrix-postgresql" {
 
   filter {
     name   = "tag:Name"
-    values = ["rancher-matrix-postgresql"]
+    values = [var.postgresql-ebs-volume-name]
   }
 }
 

@@ -2,7 +2,7 @@ resource "helm_release" "matrix" {
   create_namespace = true
   namespace        = kubernetes_namespace.matrix.metadata.0.name
   name             = var.release-name
-  repository       = "https://ananace.gitlab.io/charts"
+  repository       = var.release-repo
   chart            = var.release-chart
 
   set {
