@@ -1,5 +1,5 @@
 resource "kubernetes_namespace" "matrix" {
   metadata {
-    name = "matrix"
+    name = var.namespace
   }
 }

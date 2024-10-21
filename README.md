@@ -18,11 +18,13 @@ Creates;
 
 [EBS Volume](https://docs.aws.amazon.com/cli/latest/reference/ec2/create-volume.html)
 
+[kubectl](https://kubernetes.io/docs/tasks/tools/)
+
 ## Instrucions
 
 ### Create Volumes
 
-The volume must be in the same AZ as your rancher server. The IAM policy requires a Rancher=true Tag. If you chnage the Name tag make sure you update the additional variables.
+The volume must be in the same AZ as your rancher server. The IAM volume policy requires a Rancher=true Tag. If you chnage the Name tag make sure you update the additional variables.
 
 ```bash
 aws ec2 create-volume \
