@@ -24,7 +24,7 @@ Creates;
 
 The volume must be in the same AZ as your rancher server. The IAM policy requires a Rancher=true Tag. If you chnage the Name tag make sure you update the additional variables.
 
-'''bash
+```bash
 aws ec2 create-volume \
     --tag-specifications 'ResourceType=volume,Tags=[{Key=Name,Value=rancher-matrix},{Key=Rancher,Value=True}]' \
     --volume-type gp3 \
@@ -36,19 +36,18 @@ aws ec2 create-volume \
     --volume-type gp3 \
     --size 5 \
     --availability-zone eu-west-2a
-
-'''
+```
 
 ### Create Secret
 
 Create a registration shared secret and store in AWS secret manager.
 
-'''bash
+```bash
 aws secretsmanager create-secret \
     --name matrix \
     --description "Matrix secrets" \
     --secret-string "{\"registrationSharedSecret\":\"$(openssl rand -base64 24)\"}"
-'''
+```
 
 Take note of the Secret ARN in the output
 
@@ -68,9 +67,9 @@ Change the following values
 
 ### Apply Terrafrom
 
-'''bash
+```bash
 terraform apply
-'''
+```
 
 ### Create a user
 
@@ -78,12 +77,12 @@ Registraion is disabled in this deployment.
 
 To create a user, enter the following commands. The examples creates a user called merovingian. Ooh la la!
 
-'''
+```
 export MATRIXUSER=merovingian
 export MATRIXPOD=$(kubectl get pods -n matrix --selector=app.kubernetes.io/component=synapse --no-headers=true -o custom-columns=":metadata.name")
 
 kubectl exec --stdin --tty -n matrix  $MATRIXPOD -- register_new_matrix_user -u $MATRIXUSER -a -c /synapse/config/conf.d/secrets.yaml
-'''
+```
 
 When prompted set your user password
 
