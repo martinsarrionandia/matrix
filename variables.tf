@@ -28,7 +28,7 @@ variable "matrix-federation" {
   default = "_matrix._tcp"
 }
 
-variable "federation_port" {
+variable "federation-port" {
   description = "This will be 443 for kubernetes deployments"
   type        = string
   default     = "443"
