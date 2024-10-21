@@ -1,3 +1,18 @@
+variable "namespace" {
+  type    = string
+  default = "matrix"
+}
+
+variable "remote-state-bucket" {
+  type    = string
+  default = "sarrionandia.co.uk"
+}
+
+variable "matrix-secret-arn" {
+  type    = string
+  default = "arn:aws:secretsmanager:eu-west-2:281287281094:secret:matrix-fFyAgI"
+}
+
 variable "main-domain" {
   type    = string
   default = "sarrionandia.co.uk"
@@ -14,7 +29,7 @@ variable "release-name" {
 }
 
 variable "release-repo" {
-  type = string
+  type    = string
   default = "https://ananace.gitlab.io/charts"
 }
 
@@ -34,22 +49,12 @@ variable "federation-port" {
   default     = "443"
 }
 
-variable "matrix-secret-arn" {
-  type    = string
-  default = "arn:aws:secretsmanager:eu-west-2:281287281094:secret:matrix-fFyAgI"
-}
-
-variable "remote-state-bucket" {
-  type = string
-  default = "sarrionandia.co.uk"
-}
-
 variable "matrix-ebs-volume-name" {
-  type = string
+  type    = string
   default = "rancher-matrix"
 }
 
 variable "postgresql-ebs-volume-name" {
-  type = string
+  type    = string
   default = "rancher-matrix-postgresql"
 }
