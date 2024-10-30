@@ -18,6 +18,8 @@ Creates;
 
 [EBS Volume](https://docs.aws.amazon.com/cli/latest/reference/ec2/create-volume.html)
 
+[AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+
 [kubectl](https://kubernetes.io/docs/tasks/tools/)
 
 ## Instrucions

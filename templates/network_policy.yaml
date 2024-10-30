@@ -39,6 +39,18 @@ spec:
               - 10.0.0.0/8
               - 192.168.0.0/16
               - 172.16.0.0/12
+   - ports:
+        - port: 443
+          protocol: TCP
+      to:
+        - namespaceSelector:
+            matchExpressions:
+              - key: kubernetes.io/metadata.name
+                operator: In
+                values:
+                  - cattle-provisioning-capi-system
+            matchLabels:
+              kubernetes.io/metadata.name: cattle-provisioning-capi-system
   ingress:
     - from:
         - namespaceSelector:
