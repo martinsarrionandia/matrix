@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: "${release-name}"
+  name: "${release-name}-synapse"
   namespace: "${namespace}"
 spec:
   egress:
@@ -40,17 +40,35 @@ spec:
               - 192.168.0.0/16
               - 172.16.0.0/12
     - ports:
-        - port: 443
+        - port: 5432
           protocol: TCP
       to:
-        - namespaceSelector:
+        - podSelector:
             matchExpressions:
-              - key: kubernetes.io/metadata.name
+              - key: app.kubernetes.io/name
                 operator: In
                 values:
-                  - cattle-provisioning-capi-system
+                  - postgresql
             matchLabels:
-              kubernetes.io/metadata.name: cattle-provisioning-capi-system
+              app.kubernetes.io/instance: matrix
+              app.kubernetes.io/name: postgresql
+    - ports:
+        - port: 6379
+          protocol: TCP
+      to:
+        - podSelector:
+            matchExpressions:
+              - key: app.kubernetes.io/name
+                operator: In
+                values:
+                  - redis
+              - key: app.kubernetes.io/instance
+                operator: In
+                values:
+                  - matrix
+            matchLabels:
+              app.kubernetes.io/instance: matrix
+              app.kubernetes.io/name: redis
   ingress:
     - from:
         - namespaceSelector:
@@ -58,9 +76,9 @@ spec:
               - key: kubernetes.io/metadata.name
                 operator: In
                 values:
-                  - kube-system
+                  - traefik
             matchLabels:
-              kubernetes.io/metadata.name: kube-system
+              kubernetes.io/metadata.name: traefik
           podSelector:
             matchExpressions:
               - key: app.kubernetes.io/name
@@ -72,7 +90,11 @@ spec:
       ports:
         - port: 8008
           protocol: TCP
-  podSelector: {}
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/instance: matrix
+      app.kubernetes.io/name: matrix-synapse
+      app.kubernetes.io/component: matrix-synapse
   policyTypes:
     - Ingress
     - Egress

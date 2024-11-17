@@ -38,6 +38,11 @@ variable "release-chart" {
   default = "matrix-synapse"
 }
 
+variable "signingkey-job-enabled" {
+  type    = bool
+  default = true
+}
+
 variable "matrix-federation" {
   type    = string
   default = "_matrix._tcp"

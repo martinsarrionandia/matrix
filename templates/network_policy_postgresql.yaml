@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: "${release-name}-postgresql"
+  namespace: "${namespace}"
+spec:
+  ingress:
+    - from:
+        - podSelector:
+            matchExpressions:
+              - key: app.kubernetes.io/instance
+                operator: In
+                values:
+                  - "${release-name}"
+              - key: app.kubernetes.io/name
+                operator: In
+                values:
+                  - "${release-name}-synapse"
+            matchLabels:
+              app.kubernetes.io/instance: "${release-name}"
+              app.kubernetes.io/name: "${release-name}-synapse"
+      ports:
+        - port: 5432
+          protocol: TCP
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/instance: "${release-name}"
+      app.kubernetes.io/name: postgresql
+  policyTypes:
+    - Ingress
+    - Egress

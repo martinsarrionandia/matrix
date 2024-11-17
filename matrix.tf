@@ -1,5 +1,4 @@
 resource "helm_release" "matrix" {
-  create_namespace = true
   namespace        = kubernetes_namespace.matrix.metadata.0.name
   name             = var.release-name
   repository       = var.release-repo
@@ -28,6 +27,11 @@ resource "helm_release" "matrix" {
   set {
     name  = "volumePermissions.enabled"
     value = "true"
+  }
+
+  set {
+    name  = "signingkey.job.enabled"
+    value = var.signingkey-job-enabled
   }
 
   set {
