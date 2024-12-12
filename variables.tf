@@ -40,7 +40,7 @@ variable "release-chart" {
 
 variable "signingkey-job-enabled" {
   type    = bool
-  default = true
+  default = false
 }
 
 variable "matrix-federation" {

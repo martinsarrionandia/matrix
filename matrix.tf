@@ -56,7 +56,6 @@ resource "helm_release" "matrix" {
 
   set {
     name  = "ingress.annotations.traefik\\.ingress\\.kubernetes\\.io\\/router\\.middlewares"
-    value = "traefik-bouncer@kubernetescrd"
+    value = data.terraform_remote_state.rancher-config.outputs.crowdsec-bouncer-middleware
   }
-
 }
