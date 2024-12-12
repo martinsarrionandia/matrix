@@ -1,8 +1,8 @@
 resource "helm_release" "matrix" {
-  namespace        = kubernetes_namespace.matrix.metadata.0.name
-  name             = var.release-name
-  repository       = var.release-repo
-  chart            = var.release-chart
+  namespace  = kubernetes_namespace.matrix.metadata.0.name
+  name       = var.release-name
+  repository = var.release-repo
+  chart      = var.release-chart
 
   set {
     name  = "replicaCount"
@@ -53,4 +53,10 @@ resource "helm_release" "matrix" {
     name  = "config.registrationSharedSecret"
     value = jsondecode(data.aws_secretsmanager_secret_version.matrix_current.secret_string)["registrationSharedSecret"]
   }
+
+  set {
+    name  = "ingress.annotations.traefik\\.ingress\\.kubernetes\\.io\\/router\\.middlewares"
+    value = "traefik-bouncer@kubernetescrd"
+  }
+
 }
