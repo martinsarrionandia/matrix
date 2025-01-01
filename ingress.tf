@@ -4,13 +4,13 @@ resource "kubernetes_manifest" "matrix-ingress" {
     kind       = "Ingress"
     metadata = {
       annotations = {
-        "cert-manager.io/cluster-issuer" = data.terraform_remote_state.rancher-config.outputs.cluster-issuer
+        "cert-manager.io/cluster-issuer" = data.kubernetes_config_map.aws-rancher-config.data["cluster-issuer"]
       }
       labels = {
         app = var.release-chart
       }
       name      = var.release-name
-      namespace = kubernetes_namespace.matrix.metadata.0.name
+      namespace = kubernetes_namespace.matrix.metadata[0].name
     }
     spec = {
       rules = [
@@ -39,9 +39,10 @@ resource "kubernetes_manifest" "matrix-ingress" {
           hosts = [
             aws_route53_record.matrix.fqdn,
           ]
-          secretName = data.terraform_remote_state.rancher-config.outputs.cluster-issuer
+          secretName = data.kubernetes_config_map.aws-rancher-config.data["cluster-issuer"]
         },
       ]
     }
   }
 }
+

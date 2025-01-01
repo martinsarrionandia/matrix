@@ -1,5 +1,5 @@
 resource "helm_release" "matrix" {
-  namespace  = kubernetes_namespace.matrix.metadata.0.name
+  namespace  = kubernetes_namespace.matrix.metadata[0].name
   name       = var.release-name
   repository = var.release-repo
   chart      = var.release-chart
@@ -16,12 +16,12 @@ resource "helm_release" "matrix" {
 
   set {
     name  = "persistence.existingClaim"
-    value = kubernetes_persistent_volume_claim.matrix.metadata.0.name
+    value = kubernetes_persistent_volume_claim.matrix.metadata[0].name
   }
 
   set {
     name  = "postgresql.primary.persistence.existingClaim"
-    value = kubernetes_persistent_volume_claim.matrix-postgresql.metadata.0.name
+    value = kubernetes_persistent_volume_claim.matrix-postgresql.metadata[0].name
   }
 
   set {
@@ -56,6 +56,7 @@ resource "helm_release" "matrix" {
 
   set {
     name  = "ingress.annotations.traefik\\.ingress\\.kubernetes\\.io\\/router\\.middlewares"
-    value = data.terraform_remote_state.rancher-config.outputs.crowdsec-bouncer-middleware
+    value = data.kubernetes_config_map.aws-rancher-config.data["crowdsec-bouncer-middleware"]
   }
 }
+

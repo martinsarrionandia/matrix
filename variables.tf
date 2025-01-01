@@ -3,11 +3,6 @@ variable "namespace" {
   default = "matrix"
 }
 
-variable "remote-state-bucket" {
-  type    = string
-  default = "sarrionandia.co.uk"
-}
-
 variable "matrix-secret-arn" {
   type    = string
   default = "arn:aws:secretsmanager:eu-west-2:281287281094:secret:matrix-fFyAgI"
