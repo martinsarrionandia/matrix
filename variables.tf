@@ -58,3 +58,8 @@ variable "postgresql-ebs-volume-name" {
   type    = string
   default = "rancher-matrix-postgresql"
 }
+
+variable "kube-config-fqdn" {
+  type    = string
+  default = "rancher.sarrionandia.co.uk"
+}

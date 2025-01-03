@@ -8,7 +8,7 @@ resource "aws_route53_record" "matrix" {
   name    = "${var.matrix-subdomain}.${var.main-domain}"
   type    = "A"
   ttl     = "300"
-  records = data.kubernetes_config_map.aws-rancher-config.data["public-ip"]
+  records = [data.kubernetes_config_map.aws-rancher-config.data["public-ip"]]
 }
 
 resource "aws_route53_record" "federated_srv" {
