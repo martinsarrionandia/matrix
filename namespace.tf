@@ -7,4 +7,9 @@ resource "kubernetes_namespace" "matrix" {
       "pod-security.kubernetes.io/warn"    = "baseline"
     }
   }
+  lifecycle {
+    ignore_changes = [metadata[0].annotations["cattle.io/status"],
+                      metadata[0].annotations["lifecycle.cattle.io/create.namespace-auth"]]
+  }
+
 }
