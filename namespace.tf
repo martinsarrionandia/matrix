@@ -1,4 +1,4 @@
-resource "kubernetes_namespace" "matrix" {
+resource "kubernetes_namespace_v1" "matrix" {
   metadata {
     name = var.namespace
     labels = {

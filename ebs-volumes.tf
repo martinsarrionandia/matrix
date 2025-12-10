@@ -26,7 +26,7 @@ data "aws_ebs_volume" "matrix-postgresql" {
   }
 }
 
-resource "kubernetes_persistent_volume" "matrix" {
+resource "kubernetes_persistent_volume_v1" "matrix" {
   metadata {
     name = "matrix"
     labels = {
@@ -34,7 +34,7 @@ resource "kubernetes_persistent_volume" "matrix" {
     }
   }
   spec {
-    storage_class_name = data.kubernetes_config_map.aws-rancher-config.data["amazon-ebs-class"]
+    storage_class_name = data.kubernetes_config_map_v1.aws-rancher-config.data["amazon-ebs-class"]
     capacity = {
       storage = "1Gi"
     }
@@ -47,24 +47,24 @@ resource "kubernetes_persistent_volume" "matrix" {
   }
 }
 
-resource "kubernetes_persistent_volume_claim" "matrix" {
+resource "kubernetes_persistent_volume_claim_v1" "matrix" {
   metadata {
     name      = "matrix-claim"
-    namespace = kubernetes_namespace.matrix.metadata[0].name
+    namespace = kubernetes_namespace_v1.matrix.metadata[0].name
   }
   spec {
-    storage_class_name = data.kubernetes_config_map.aws-rancher-config.data["amazon-ebs-class"]
+    storage_class_name = data.kubernetes_config_map_v1.aws-rancher-config.data["amazon-ebs-class"]
     access_modes       = ["ReadWriteOnce"]
     resources {
       requests = {
         storage = "1Gi"
       }
     }
-    volume_name = kubernetes_persistent_volume.matrix.metadata[0].name
+    volume_name = kubernetes_persistent_volume_v1.matrix.metadata[0].name
   }
 }
 
-resource "kubernetes_persistent_volume" "matrix-postgresql" {
+resource "kubernetes_persistent_volume_v1" "matrix-postgresql" {
   metadata {
     name = "matrix-postgresql"
     labels = {
@@ -72,7 +72,7 @@ resource "kubernetes_persistent_volume" "matrix-postgresql" {
     }
   }
   spec {
-    storage_class_name = data.kubernetes_config_map.aws-rancher-config.data["amazon-ebs-class"]
+    storage_class_name = data.kubernetes_config_map_v1.aws-rancher-config.data["amazon-ebs-class"]
     capacity = {
       storage = "1Gi"
     }
@@ -86,19 +86,19 @@ resource "kubernetes_persistent_volume" "matrix-postgresql" {
 
 }
 
-resource "kubernetes_persistent_volume_claim" "matrix-postgresql" {
+resource "kubernetes_persistent_volume_claim_v1" "matrix-postgresql" {
   metadata {
     name      = "matrix-postgresql-claim"
-    namespace = kubernetes_namespace.matrix.metadata[0].name
+    namespace = kubernetes_namespace_v1.matrix.metadata[0].name
   }
   spec {
-    storage_class_name = data.kubernetes_config_map.aws-rancher-config.data["amazon-ebs-class"]
+    storage_class_name = data.kubernetes_config_map_v1.aws-rancher-config.data["amazon-ebs-class"]
     access_modes       = ["ReadWriteOnce"]
     resources {
       requests = {
         storage = "1Gi"
       }
     }
-    volume_name = kubernetes_persistent_volume.matrix-postgresql.metadata[0].name
+    volume_name = kubernetes_persistent_volume_v1.matrix-postgresql.metadata[0].name
   }
 }

@@ -10,7 +10,7 @@ provider "aws" {
 
 # Helm Provider
 provider "helm" {
-  kubernetes {
+  kubernetes = {
     config_path = pathexpand("~/.kube/${var.kube-config-fqdn}")
   }
 }

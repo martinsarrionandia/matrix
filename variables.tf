@@ -35,7 +35,7 @@ variable "release-chart" {
 
 variable "signingkey-job-enabled" {
   type    = bool
-  default = false
+  default = true
 }
 
 variable "matrix-federation" {
@@ -61,5 +61,5 @@ variable "postgresql-ebs-volume-name" {
 
 variable "kube-config-fqdn" {
   type    = string
-  default = "rancher.sarrionandia.co.uk"
+  default = "rancher-b3.sarrionandia.co.uk"
 }
