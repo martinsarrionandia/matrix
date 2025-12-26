@@ -35,7 +35,7 @@ variable "release-chart" {
 
 variable "signingkey-job-enabled" {
   type    = bool
-  default = true
+  default = false
 }
 
 variable "matrix-federation" {
@@ -47,6 +47,16 @@ variable "federation-port" {
   description = "This will be 443 for kubernetes deployments"
   type        = string
   default     = "443"
+}
+
+variable "csi-driver" {
+  type    = string
+  default = "ebs.csi.aws.com"
+}
+
+variable "csi-fs-type" {
+  type    = string
+  default = "ext4"
 }
 
 variable "matrix-ebs-volume-name" {

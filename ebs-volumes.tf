@@ -41,9 +41,9 @@ resource "kubernetes_persistent_volume_v1" "matrix" {
     access_modes = ["ReadWriteOnce"]
     persistent_volume_source {
       csi {
-        driver        = "ebs.csi.aws.com"
+        driver        = var.csi-driver
         volume_handle = data.aws_ebs_volume.matrix.id
-        fs_type       = "ext4" # change to xfs if that's what you formatted it as
+        fs_type       = var.csi-fs-type
       }
     }
   }
