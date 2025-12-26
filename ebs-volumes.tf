@@ -36,12 +36,14 @@ resource "kubernetes_persistent_volume_v1" "matrix" {
   spec {
     storage_class_name = data.kubernetes_config_map_v1.aws-rancher-config.data["amazon-ebs-class"]
     capacity = {
-      storage = "1Gi"
+      storage = "5Gi"
     }
     access_modes = ["ReadWriteOnce"]
     persistent_volume_source {
-      aws_elastic_block_store {
-        volume_id = data.aws_ebs_volume.matrix.id
+      csi {
+        driver        = "ebs.csi.aws.com"
+        volume_handle = data.aws_ebs_volume.matrix.id
+        fs_type       = "ext4" # change to xfs if that's what you formatted it as
       }
     }
   }
@@ -57,7 +59,7 @@ resource "kubernetes_persistent_volume_claim_v1" "matrix" {
     access_modes       = ["ReadWriteOnce"]
     resources {
       requests = {
-        storage = "1Gi"
+        storage = "5Gi"
       }
     }
     volume_name = kubernetes_persistent_volume_v1.matrix.metadata[0].name
