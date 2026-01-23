@@ -61,13 +61,13 @@ Edit the variables file [variables.tf](variables.tf)
 
 Change the following values
 
-- matrix-secret-arn
+- matrix_secret_arn
 
 - remote-state-bucket
 
-- main-domain
+- main_domain
 
-- matrix-subdomain
+- matrix_subdomain
 
 ### Apply Terrafrom
 

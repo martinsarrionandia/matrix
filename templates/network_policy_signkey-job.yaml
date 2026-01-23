@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: "${release-name}-signingkey-job"
+  name: "${release_name}-signingkey-job"
   namespace: "${namespace}"
 spec:
   egress:
@@ -17,7 +17,7 @@ spec:
               kubernetes.io/metadata.name: default
   podSelector:
     matchLabels:
-      app.kubernetes.io/instance: "${release-name}"
+      app.kubernetes.io/instance: "${release_name}"
       app.kubernetes.io/component: signingkey-job
   policyTypes:
     - Ingress

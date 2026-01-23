@@ -8,7 +8,7 @@ data "aws_ebs_volume" "matrix" {
 
   filter {
     name   = "tag:Name"
-    values = [var.matrix-ebs-volume-name]
+    values = [var.matrix_ebs_volume_name]
   }
 }
 
@@ -22,7 +22,7 @@ data "aws_ebs_volume" "matrix-postgresql" {
 
   filter {
     name   = "tag:Name"
-    values = [var.postgresql-ebs-volume-name]
+    values = [var.postgresql_ebs_volume_name]
   }
 }
 
@@ -41,9 +41,9 @@ resource "kubernetes_persistent_volume_v1" "matrix" {
     access_modes = ["ReadWriteOnce"]
     persistent_volume_source {
       csi {
-        driver        = var.csi-driver
+        driver        = var.csi_driver
         volume_handle = data.aws_ebs_volume.matrix.id
-        fs_type       = var.csi-fs-type
+        fs_type       = var.csi_fs_type
       }
     }
   }

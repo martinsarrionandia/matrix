@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: "${release-name}-synapse"
+  name: "${release_name}-synapse"
   namespace: "${namespace}"
 spec:
   egress:

@@ -1,5 +1,5 @@
 data "aws_secretsmanager_secret" "matrix" {
-  arn = var.matrix-secret-arn
+  arn = var.matrix_secret_arn
 }
 
 data "aws_secretsmanager_secret_version" "matrix_current" {

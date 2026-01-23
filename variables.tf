@@ -3,73 +3,73 @@ variable "namespace" {
   default = "matrix"
 }
 
-variable "matrix-secret-arn" {
+variable "matrix_secret_arn" {
   type    = string
   default = "arn:aws:secretsmanager:eu-west-2:281287281094:secret:matrix-fFyAgI"
 }
 
-variable "main-domain" {
+variable "main_domain" {
   type    = string
   default = "sarrionandia.co.uk"
 }
 
-variable "matrix-subdomain" {
+variable "matrix_subdomain" {
   type    = string
   default = "matrix"
 }
 
-variable "release-name" {
+variable "release_name" {
   type    = string
   default = "matrix"
 }
 
-variable "release-repo" {
+variable "release_repo" {
   type    = string
   default = "https://ananace.gitlab.io/charts"
 }
 
-variable "release-chart" {
+variable "release_chart" {
   type    = string
   default = "matrix-synapse"
 }
 
-variable "signingkey-job-enabled" {
+variable "signingkey_job_enabled" {
   type    = bool
   default = false
 }
 
-variable "matrix-federation" {
+variable "matrix_federation" {
   type    = string
   default = "_matrix._tcp"
 }
 
-variable "federation-port" {
+variable "federation_port" {
   description = "This will be 443 for kubernetes deployments"
   type        = string
   default     = "443"
 }
 
-variable "csi-driver" {
+variable "csi_driver" {
   type    = string
   default = "ebs.csi.aws.com"
 }
 
-variable "csi-fs-type" {
+variable "csi_fs_type" {
   type    = string
   default = "ext4"
 }
 
-variable "matrix-ebs-volume-name" {
+variable "matrix_ebs_volume_name" {
   type    = string
   default = "rancher-matrix"
 }
 
-variable "postgresql-ebs-volume-name" {
+variable "postgresql_ebs_volume_name" {
   type    = string
   default = "rancher-matrix-postgresql"
 }
 
-variable "kube-config-fqdn" {
+variable "kube_config_fqdn" {
   type    = string
-  default = "rancher-b3.sarrionandia.co.uk"
+  default = "rancher.sarrionandia.co.uk"
 }

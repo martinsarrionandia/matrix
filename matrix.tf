@@ -1,8 +1,8 @@
 resource "helm_release" "matrix" {
   namespace  = kubernetes_namespace_v1.matrix.metadata[0].name
-  name       = var.release-name
-  repository = var.release-repo
-  chart      = var.release-chart
+  name       = var.release_name
+  repository = var.release_repo
+  chart      = var.release_chart
 
   set = [{
     name  = "replicaCount"
@@ -26,7 +26,7 @@ resource "helm_release" "matrix" {
     },
     {
       name  = "signingkey.job.enabled"
-      value = var.signingkey-job-enabled
+      value = var.signingkey_job_enabled
     },
     {
       name  = "serverName"
