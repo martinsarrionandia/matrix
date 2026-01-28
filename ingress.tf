@@ -23,7 +23,7 @@ resource "kubernetes_manifest" "matrix-ingress" {
                   service = {
                     name = "${var.release_name}-${var.release_chart}"
                     port = {
-                      number = 80
+                      number = 8008
                     }
                   }
                 }
