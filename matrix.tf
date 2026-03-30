@@ -3,6 +3,7 @@ resource "helm_release" "matrix" {
   name       = var.release_name
   repository = var.release_repo
   chart      = var.release_chart
+  version    = local.latest_helm_version
 
   set = [{
     name  = "replicaCount"
